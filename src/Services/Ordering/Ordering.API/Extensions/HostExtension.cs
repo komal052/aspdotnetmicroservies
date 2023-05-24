@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ordering.API.Extensions
