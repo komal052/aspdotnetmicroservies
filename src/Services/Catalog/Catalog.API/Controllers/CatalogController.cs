@@ -16,21 +16,21 @@ namespace Catalog.API.Controllers
 
         public CatalogController(IProductRepository productRepository, ILogger<CatalogController> logger)
         {
-            //_productRepository = productRepository;
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Product>>> getProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             var product=await _productRepository.GetProducts();
             return Ok(product);
         }
-        [HttpGet("{id:length(24)}",Name="Getproduct")]
+      
+        [HttpGet("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Product>> GetProductById(String Id)
+        public async Task<ActionResult<Product>> GetProductById(string Id)
         {
             var product = await _productRepository.GetProduct(Id);
             if(product==null) {
@@ -39,14 +39,14 @@ namespace Catalog.API.Controllers
             }
             return Ok(product);
         }
-
-        [HttpGet("ProductByCategory")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        
+        [Route("[action]/{category}", Name = "GetProductByCategory")]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Product>>> getProductByCategory(String category)
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
-            var product = await _productRepository.GetProductByCategory(category);
-            return Ok(product);
+            var products = await _productRepository.GetProductByCategory(category);
+            return Ok(products);
         }
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]

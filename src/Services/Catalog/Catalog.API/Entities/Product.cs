@@ -3,11 +3,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.API.Entities
 {
+    //[BsonIgnoreExtraElements]
     public class Product
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-
         public string Id { get; set; }
 
         [BsonElement("Name")]
@@ -16,6 +16,6 @@ namespace Catalog.API.Entities
         public string Summary { get; set; }
         public string Description { get; set; }
         public string ImageFile { get; set; }
-        public string Price { get; set; }
+        public string  Price { get; set; }
     }
 }

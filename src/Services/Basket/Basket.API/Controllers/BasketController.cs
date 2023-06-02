@@ -27,13 +27,12 @@ namespace Basket.API.Controllers
             _publishEndpoint = publishEndpoint;
             _mapper = mapper;
         }
-
-        [HttpGet]
+        [HttpGet("{userName}", Name = "GetBasket")]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)] 
-        public async Task<ActionResult<ShoppingCart>> Get(string name)
+        public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
         {
-            var basket = await _basketRepository.getBasket(name); 
-            return Ok(basket ?? new ShoppingCart(name));
+            var basket = await _basketRepository.getBasket(userName); 
+            return Ok(basket ?? new ShoppingCart(userName));
         }
 
         [HttpPost]
@@ -51,10 +50,11 @@ namespace Basket.API.Controllers
             return Ok(await _basketRepository.UpdateBasket(basket));
         }
 
-        [HttpDelete]
+        [HttpDelete("{userName}", Name = "DeleteBasket")]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCart>> DeleteBasket(string name)
         {
+
            await _basketRepository.deleteBasket(name);
             return Ok();
         }

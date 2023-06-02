@@ -7,25 +7,29 @@ namespace Catalog.API.Data
     {
         public static void SeedData(IMongoCollection<Product> productCollection)
         {
-            bool existProduct=productCollection.Find(x=>true).Any();
-            if(!existProduct) {
-                productCollection.InsertManyAsync(GetPreconfigureProducts());
+            bool existProduct = productCollection.Find(p => true).Any();
+            if (!existProduct)
+            {
+                productCollection.InsertManyAsync(GetPreconfiguredProducts());
             }
         }
 
-        private static IEnumerable<Product> GetPreconfigureProducts()
+
+        private static IEnumerable<Product> GetPreconfiguredProducts()
         {
-            return new List<Product>() { new Product()
+            return new List<Product>()
             {
-                  Id = "602d2149e773f2a3990b47f5",
+                new Product()
+                {
+                    Id = "602d2149e773f2a3990b47f5",
                     Name = "IPhone X",
                     Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
                     Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                     ImageFile = "product-1.png",
                     Price = "950.00M",
                     Category = "Smart Phone"
-            },
-             new Product()
+                },
+                new Product()
                 {
                     Id = "602d2149e773f2a3990b47f6",
                     Name = "Samsung 10",
@@ -35,7 +39,7 @@ namespace Catalog.API.Data
                     Price = "840.00M",
                     Category = "Smart Phone"
                 },
-               new Product()
+                new Product()
                 {
                     Id = "602d2149e773f2a3990b47f7",
                     Name = "Huawei Plus",
@@ -75,8 +79,8 @@ namespace Catalog.API.Data
                     Price = "240.00M",
                     Category = "Home Kitchen"
                 }
-
-           };
+            };
         }
     }
+
 }
